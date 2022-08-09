@@ -12,7 +12,7 @@ import (
 func main() {
 	gin.SetMode(gin.DebugMode)
 	r := setupRouter()
-	_ = r.Run(":1330")
+	_ = r.Run(":8080")
 }
 
 func setupRouter() *gin.Engine {

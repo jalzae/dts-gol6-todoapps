@@ -12,7 +12,7 @@ import (
 func main() {
 	gin.SetMode(gin.DebugMode)
 	r := setupRouter()
-	_ = r.Run(":8080")
+	_ = r.Run(":1330")
 }
 
 func setupRouter() *gin.Engine {
@@ -20,22 +20,22 @@ func setupRouter() *gin.Engine {
 	r.Use(Cors())
 
 	r.GET("ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, "pong")
+		c.JSON(http.StatusOK, "connected")
 	})
 
-	userRepo := controllers.New()
-	r.POST("/users", auth, userRepo.CreateUser)
-	r.GET("/users", auth, userRepo.GetUsers)
-	r.GET("/users/:id", auth, userRepo.GetUser)
-	r.PUT("/users/:id", auth, userRepo.UpdateUser)
-	r.DELETE("/users/:id", auth, userRepo.DeleteUser)
+	employeRepo := controllers.EmployeControll()
+	r.POST("/employe", employeRepo.Createemploye)
+	r.GET("/employe", employeRepo.Getemployes)
+	r.GET("/employe/:id", employeRepo.Getemploye)
+	r.PUT("/employe/:id", employeRepo.Updateemploye)
+	r.DELETE("/employe/:id", employeRepo.Deleteemploye)
 
-	BarangController := controllers.Brg()
-	r.GET("/Barang", auth, BarangController.GetAllBarang)
-	r.POST("/Barang", auth, BarangController.CreateBarang)
-
-	LoginController := controllers.Login()
-	r.POST("/Login", LoginController.Login)
+	taskRepo := controllers.TaskControll()
+	r.POST("/task", taskRepo.Createtask)
+	r.GET("/task", taskRepo.Gettasks)
+	r.GET("/task/:id", taskRepo.Gettask)
+	r.PUT("/task/:id", taskRepo.Updatetask)
+	r.DELETE("/task/:id", taskRepo.Deletetask)
 
 	return r
 
@@ -66,7 +66,7 @@ func auth(c *gin.Context) {
 	key := filter.Getkey()
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if jwt.GetSigningMethod("HS256") != token.Method {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(key), nil
 	})

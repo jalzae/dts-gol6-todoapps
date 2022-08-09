@@ -2,15 +2,9 @@ package config
 
 import (
 	"fmt"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
-
-const DB_USERNAME = "root"
-const DB_PASSWORD = ""
-const DB_NAME = "test"
-const DB_HOST = "127.0.0.1"
-const DB_PORT = "3306"
 
 var Db *gorm.DB
 
@@ -21,9 +15,9 @@ func InitDb() *gorm.DB {
 
 func connectDB() *gorm.DB {
 	var err error
-	dsn := DB_USERNAME + ":" + DB_PASSWORD + "@tcp" + "(" + DB_HOST + ":" + DB_PORT + ")/" + DB_NAME + "?" + "parseTime=true&loc=Local"
+	
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println("Error connecting to database : error", err)

@@ -12,5 +12,6 @@ require (
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
 	gorm.io/driver/mysql v1.1.0
-	gorm.io/gorm v1.21.10
+	gorm.io/driver/sqlite v1.3.6 // indirect
+	gorm.io/gorm v1.23.4
 )

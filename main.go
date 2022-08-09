@@ -19,7 +19,7 @@ func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(Cors())
 
-	r.GET("ping", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "connected")
 	})
 
